@@ -16,15 +16,10 @@ function filter_list(array) {
 
 // Abbreviate a two word name where there will always be two uppercase letters
 function abbrevName(name){
-  let abbreviation = []
-  for (let i = 0; i < name.length; i++){
-    if (name.charAt(i) == name.charAt(i).toUpperCase()){
-      abbreviation.push(name.charAt(i))
-    }   
-  }
-  abbreviation.splice(1, 0, '.')
-  let result = abbreviation.join('')
-  return result.replace(/ /g,'')
+  name = name.split(" ")
+  let a = name[0].split("")
+  let b = name[1].split("")
+  return a[0].toUpperCase()+"."+b[0].toUpperCase()
 }
 
 abbrevName("Sean Padden")
