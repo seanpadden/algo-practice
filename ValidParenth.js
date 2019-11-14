@@ -1,9 +1,23 @@
 function validParentheses(parens){
-  let arr = parens.split('')
-  if (arr.length % 2 === 0 && arr[0] === "(" && arr.slice(-1)[0] === ")"){
-      console.log( true)
-    } else {
-      console.log( false)
+  let stack = []
+  let map = {
+    '(': ')'
+  }
+  for (let i = 0; i < parens.length; i++){
+    if (parens[i] === "("){
+      stack.push(parens[i])
+    } 
+    else {
+      let last = stack.pop()
+      if (parens[i] !== map[last]){
+        return false 
+      }
     }
   }
-validParentheses("(())((()())())")
+  if (stack.length !== 0){
+    return false
+  }
+  return true
+}
+
+validParentheses("()()()()()((()")
