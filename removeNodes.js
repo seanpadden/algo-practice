@@ -6,5 +6,4 @@
 // x: integer, the maximum value to be included in the returned singly linked list 
 function removeNodes(listHead, x) {
   
-
 }
