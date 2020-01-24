@@ -16,18 +16,19 @@ const data = require("./booksMoviesData")
 // - book
 function createChildren(productArray) {
   debugger;
-    let products = new Tree("Products")
-    let productsChildren = products.getRootNode().getChildren()
-    for (let product of productArray) {
-        let categoryNode = getCategoryNode(productsChildren, product.type)
-        let newProduct = new TreeNode(product)
-        categoryNode.getChildren().push(newProduct)
-    }
-  return productsChildren
+  let products = new Tree("Products")
+  let productsChildren = products.getRootNode().getChildren()
+  for (let product of productArray) {
+      let categoryNode = getCategoryNode(productsChildren, product.type)
+      let newProduct = new TreeNode(product)
+      categoryNode.getChildren().push(newProduct)
+  }
+  return products
 }
 
+let allProducts = {}
+
 function getCategoryNode(productsChildren, productType) {
-    let allProducts = {}
     if (!allProducts[productType]) {
         allProducts[productType] = new TreeNode(productType)
         productsChildren.push(allProducts[productType])
@@ -35,16 +36,22 @@ function getCategoryNode(productsChildren, productType) {
   return allProducts[productType]
 }
 
-// write recursive function that takes an array of children
-// outside of that, pass in the tree's root node of children into there 
+let productTree = createChildren(data)
 
-function printCatalogue(node){
-  console.log('Node:', node)
-  if (node.children){
-    for (let i = 0; i < node.children.length; i++) {
-      printCatalogue(node.children[i])
+
+function printNodes(children){
+  for (let i = 0; i < children.length; i++){
+    let child = children[i]
+    if (child.getChildren().length) {
+      console.log(`  ${child.getValue()}  `)
+      printNodes(child.children)
+    }
+    else {
+      console.log(`  ${child.getValue().title}  `)
     }
   }
 }
 
-printCatalogue(data)
+let rootNode = productTree.getRootNode()
+console.log(rootNode.value)
+printNodes(rootNode.getChildren())
